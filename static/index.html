@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NDIS Plan Automation MVP</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>NDIS Plan Automation <span class="tag">MVP</span></h1>
+    <p class="sub">Drafting aid only · synthetic data only · the human Yes/No gates are the point.</p>
+  </header>
+
+  <main>
+    <!-- Step 1: intake -->
+    <section class="card" id="step-intake">
+      <h2>1 · Intake</h2>
+      <div class="row">
+        <button class="ghost" data-load="a">Load A — Liam (autism)</button>
+        <button class="ghost" data-load="b">Load B — Amara (cerebral palsy)</button>
+        <button class="ghost" data-load="c">Load C — Daniel (messy/incomplete)</button>
+      </div>
+      <textarea id="intake" rows="8" placeholder="Paste free-text participant intake here…"></textarea>
+      <div class="row">
+        <button class="primary" id="btn-parse">Parse →</button>
+        <span class="status" id="parse-status"></span>
+      </div>
+    </section>
+
+    <!-- Step 2: profile + checkpoints -->
+    <section class="card hidden" id="step-review">
+      <h2>2 · Review &amp; confirm critical points</h2>
+      <details id="profile-box">
+        <summary>Parsed participant profile (JSON)</summary>
+        <pre id="profile-json"></pre>
+      </details>
+      <p class="hint">Click <b>Yes</b> or <b>No</b> on every card. A <b>No</b> flags and excludes
+        that item from the final documents.</p>
+      <div id="checkpoints"></div>
+      <div class="row">
+        <button class="primary" id="btn-generate" disabled>Generate documents →</button>
+        <span class="status" id="generate-status"></span>
+      </div>
+    </section>
+
+    <!-- Step 3: drafts + validator -->
+    <section class="card hidden" id="step-output">
+      <h2>3 · Draft documents &amp; validator report</h2>
+      <div id="report"></div>
+      <div id="excluded-box"></div>
+      <div class="tabs" id="doc-tabs"></div>
+      <pre class="doc" id="doc-view"></pre>
+      <div class="row">
+        <button class="primary" id="btn-export">Approve &amp; Export (Markdown + PDF)</button>
+        <span class="status" id="export-status"></span>
+      </div>
+      <div id="downloads"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Care logic is the common-case version; the validator flags for human review, it does not
+      hard-block. No real participant data — see the README for privacy/retention notes.</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

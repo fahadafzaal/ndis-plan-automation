@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:llm24.net)",
+      "WebFetch(domain:opencode.ai)",
+      "Bash(python -m pip install \"openai>=1.40\" -q)",
+      "Bash(python -m pytest -q)",
+      "Bash(cd \"c:/Users/fahadafzaal/Documents/NDIS\" && rm -f logs/smoke-* && echo cleaned)",
+      "Bash(python -c \"import app.main, app.llm; print\\('imports OK'\\)\")",
+      "Bash(python -c \"import app.main, app.llm; print\\('imports OK; default model =', app.llm.DEFAULT_MODEL\\)\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\fahadafzaal\\Documents\\NDIS\\logs"
+    ]
+  }
+}
