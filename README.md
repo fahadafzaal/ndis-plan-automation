@@ -1,3 +1,13 @@
+---
+title: NDIS Plan Automation
+emoji: 🏥
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # NDIS Plan Automation MVP
 
 A small **local** agentic system that turns free-text NDIS participant intake into 2–3
