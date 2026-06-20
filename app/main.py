@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import List
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -29,6 +30,14 @@ FIXTURES_DIR = BASE_DIR / "tests" / "fixtures"
 EXPORT_DIR.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(title="NDIS Plan Automation MVP")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 app.mount("/exports", StaticFiles(directory=str(EXPORT_DIR)), name="exports")
 
