@@ -1,41 +1,46 @@
 "use client";
 
-const STEPS = ["Intake", "Review", "Documents"];
+const STEPS = [
+  { label: "Intake", desc: "Parse notes" },
+  { label: "Review", desc: "Confirm data" },
+  { label: "Documents", desc: "Export plan" },
+];
 
 export default function StepIndicator({ current }: { current: 0 | 1 | 2 }) {
   return (
-    <div className="flex items-center gap-0">
-      {STEPS.map((label, i) => {
+    <div className="flex items-center justify-center">
+      {STEPS.map((s, i) => {
         const done = i < current;
         const active = i === current;
         return (
-          <div key={label} className="flex items-center">
+          <div key={s.label} className="flex items-center">
             <div className="flex flex-col items-center">
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold border-2 transition-colors ${
+                className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 ${
                   done
-                    ? "bg-blue-600 border-blue-600 text-white"
+                    ? "bg-white border-white text-blue-700 shadow"
                     : active
-                    ? "bg-white border-blue-600 text-blue-600"
-                    : "bg-white border-slate-300 text-slate-400"
+                    ? "bg-white/20 border-white text-white shadow-inner"
+                    : "bg-transparent border-white/30 text-white/40"
                 }`}
               >
-                {done ? "✓" : i + 1}
+                {done ? (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : (
+                  i + 1
+                )}
               </div>
-              <span
-                className={`mt-1 text-xs font-medium ${
-                  active ? "text-blue-600" : done ? "text-slate-600" : "text-slate-400"
-                }`}
-              >
-                {label}
+              <span className={`mt-1.5 text-xs font-semibold transition-colors ${active ? "text-white" : done ? "text-blue-100" : "text-white/40"}`}>
+                {s.label}
+              </span>
+              <span className={`text-[10px] transition-colors ${active ? "text-blue-200" : done ? "text-blue-200/60" : "text-white/25"}`}>
+                {s.desc}
               </span>
             </div>
             {i < STEPS.length - 1 && (
-              <div
-                className={`h-0.5 w-16 mx-1 mb-4 transition-colors ${
-                  i < current ? "bg-blue-600" : "bg-slate-200"
-                }`}
-              />
+              <div className={`h-0.5 w-20 sm:w-28 mx-3 mb-7 rounded-full transition-all duration-500 ${i < current ? "bg-white" : "bg-white/20"}`} />
             )}
           </div>
         );

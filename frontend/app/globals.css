@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --bg: #f0f4f8;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 html { scroll-behavior: smooth; }
 
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #f1f5f9; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
-.doc-content {
-  font-family: "SF Mono", "Fira Code", Consolas, monospace;
-  font-size: 0.8rem;
-  line-height: 1.7;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
+/* Markdown document styles */
+.md-body { font-size: 0.875rem; line-height: 1.75; color: #1e293b; }
+.md-body h1 { font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; }
+.md-body h2 { font-size: 1rem; font-weight: 700; color: #1e40af; margin: 1.5rem 0 0.5rem; }
+.md-body h3 { font-size: 0.875rem; font-weight: 600; color: #334155; margin: 1rem 0 0.25rem; }
+.md-body hr { border: none; border-top: 1px solid #e2e8f0; margin: 1.25rem 0; }
+.md-body p { margin: 0.5rem 0; }
+.md-body strong { font-weight: 600; color: #0f172a; }
+.md-body ul { list-style: disc; padding-left: 1.25rem; margin: 0.5rem 0; }
+.md-body li { margin: 0.2rem 0; }
+.md-body table { width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 0.8rem; }
+.md-body th { background: #f1f5f9; font-weight: 600; text-align: left; padding: 0.5rem 0.75rem; border: 1px solid #e2e8f0; color: #374151; }
+.md-body td { padding: 0.4rem 0.75rem; border: 1px solid #e2e8f0; color: #475569; }
+.md-body tr:nth-child(even) td { background: #f8fafc; }
