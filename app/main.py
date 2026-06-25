@@ -25,6 +25,7 @@ from .validator import validate
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_DIR = BASE_DIR / "static"
+NEXT_DIR = BASE_DIR / "static_next"
 FIXTURES_DIR = BASE_DIR / "tests" / "fixtures"
 
 EXPORT_DIR.mkdir(parents=True, exist_ok=True)
@@ -38,7 +39,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 app.mount("/exports", StaticFiles(directory=str(EXPORT_DIR)), name="exports")
 
 
@@ -66,10 +66,17 @@ class SessionRequest(BaseModel):
     session_id: str
 
 
+# ---- frontend (Next.js static export or fallback to legacy static HTML) ---------------
+def _frontend_index() -> str:
+    if (NEXT_DIR / "index.html").exists():
+        return str(NEXT_DIR / "index.html")
+    return str(STATIC_DIR / "index.html")
+
+
 # ---- routes -------------------------------------------------------------------------------
 @app.get("/")
 def index():
-    return FileResponse(str(STATIC_DIR / "index.html"))
+    return FileResponse(_frontend_index())
 
 
 @app.get("/api/participants")
@@ -177,3 +184,8 @@ def _get(session_id: str):
         return get_session(session_id)
     except KeyError:
         raise HTTPException(404, "Unknown session_id — parse the intake again.")
+
+
+# Mount Next.js static assets AFTER all API routes so /api/* is never intercepted
+if NEXT_DIR.exists():
+    app.mount("/_next", StaticFiles(directory=str(NEXT_DIR / "_next")), name="next-assets")
